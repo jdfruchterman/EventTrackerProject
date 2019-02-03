@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Maintenance Tracker</title>
+</head>
+<body>
+	<h1>Maintenance Tracker App</h1>
+	<form id="showMIForm" name="showMIForm">
+		<button name="showMaintItem" id="showMaintItem">Show All Maintenance Entries</button>
+	</form>
+	<form id="createMaintenanceItemForm" name="createMaintenanceItemForm"> 
+		Title: <input type="text" id="title" name="title" placeholder="title"><br>
+		Category: <input type="text" id="category" name="category" placeholder="category"><br>
+		Description: <textarea id="description" name="description" placeholder="description"></textarea><br>
+		Price: <input type="text" id="price" name="price" placeholder="price"><br>
+		Hours:<input type="text" id="hours" name="hours" placeholder="hours"><br>
+		Performed By:<input type="text" id="performedBy" name="performedBy" placeholder="performed by"><br>
+		Miles: <input type="text" id="miles" name="miles" placeholder="miles"><br>
+		Date: <input type="date" id="date" name="date" placeholder="date"><br>
+		Vehicle: <input type="text" id="vehicle" name="vehicle" placeholder="vehicle"><br>
+		<button type="submit" name="submitMaintItem" id="submitMaintItem">Create Maintenance Item</button>
+	</form>
+	<div id="results" name="results">
+		<table id="displayMaintItem" name="displayMaintItem">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Category</th>
+					<th>Price</th>
+					<th>Hours</th>
+					<th>Performed By</th>
+					<th>Miles</th>
+					<th>Date</th>
+					<th>Vehicle</th>
+				</tr>
+			</thead>
+			<tbody id="tableBody" name="tableBody">
+			</tbody>
+		</table>
+	</div>
+	<div id="editView" name="editView">
+	</div>
+
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
