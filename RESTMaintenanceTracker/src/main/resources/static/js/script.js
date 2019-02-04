@@ -89,6 +89,20 @@ function editMaintenanceItem(e) {
 	xhr.send(editedMaintenanceItemObjectJson);
 }
 
+function deleteMaintenanceItem(e) {
+	var xhr = new XMLHttpRequest();
+	xhr.open("DELETE", 'api/maintenanceItems/' + e.currentTarget.id, true);
+	xhr.onload = function () {
+		var maintenanceItems = JSON.parse(xhr.responseText);
+		if (xhr.readyState == 4 && xhr.status == "200") {
+			console.table(maintenanceItems);
+		} else {
+			console.error(maintenanceItems);
+		}
+	}
+	xhr.send(null);
+};
+
 function editView(maintenanceItem) {
 	var editDiv = document.getElementById('editView');
 	var form = document.createElement('form');
@@ -149,15 +163,22 @@ function editView(maintenanceItem) {
 	editButton.addEventListener('click', editMaintenanceItem);
 	form.appendChild(editButton);
 	
+	var deleteButton = document.createElement('button');
+	deleteButton.type = "submit";
+	deleteButton.id = maintenanceItem.id;
+	deleteButton.name = "deleteEntry";
+	deleteButton.textContent = "Delete Entry";
+	
+	deleteButton.addEventListener('click', deleteMaintenanceItem);
+	form.appendChild(deleteButton);
+	
 	console.log(editDiv);
 	
 	
 	
 };
 
-function deleteMaintenanceItem() {
-	
-};
+
 
 function createMaintenanceItem(e) {
 	e.preventDefault();
