@@ -6,9 +6,25 @@
 </head>
 <body>
 	<h1>Maintenance Tracker App</h1>
+	<br>
+	<br>
+	<div id="ticker" name="ticker" class="ticker">
+		<table>
+			<tr>
+				<td>Total Hours</td>
+				<td>Total Cost</td>
+			</tr>
+			<tr>
+				<td id="hours" name="hours"></td>	
+				<td id="price" name="price"></td>
+			</tr>
+		</table>
+	</div>
+	<br>
 	<form id="showMIForm" name="showMIForm">
 		<button name="showMaintItem" id="showMaintItem">Show All Maintenance Entries</button>
 	</form>
+	<br>
 	<form id="createMaintenanceItemForm" name="createMaintenanceItemForm"> 
 		Title: <input type="text" id="title" name="title" placeholder="title"><br>
 		Category: <input type="text" id="category" name="category" placeholder="category"><br>
@@ -21,6 +37,7 @@
 		Vehicle: <input type="text" id="vehicle" name="vehicle" placeholder="vehicle"><br>
 		<button type="submit" name="submitMaintItem" id="submitMaintItem">Create Maintenance Item</button>
 	</form>
+	<br>
 	<div id="results" name="results">
 		<table id="displayMaintItem" name="displayMaintItem">
 			<thead>
@@ -39,6 +56,7 @@
 			</tbody>
 		</table>
 	</div>
+	<br>
 	<div id="editView" name="editView">
 	</div>
 

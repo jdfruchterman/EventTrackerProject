@@ -14,6 +14,8 @@ function init() {
 	// document.newFilmForm.saveFilm.addEventListener('click', createFilm);
 	document.createMaintenanceItemForm.submitMaintItem.addEventListener('click', createMaintenanceItem );
 	document.showMIForm.showMaintItem.addEventListener('click', showAll);
+	
+	getStats();
 }
 
 function getItemToEdit(e) {
@@ -249,6 +251,53 @@ function showAll(e) {
 		}
 	};
 	xhr.send(null);
+}
+
+function getStats() {
+//	e.preventDefault();
+	var xhr = new XMLHttpRequest();
+
+	xhr.open('GET', 'api/maintenanceItems/', true);
+	// xhr.open('GET', 'http://18.188.180.245:8080/PickEmRest/api/games/100',
+	// true);
+
+	xhr.onreadystatechange = function() {
+		console.log('xhr.readyState: ' + xhr.readyState);
+		console.log('xhr.status: ' + xhr.readyState);
+		console.log('xhr.responseText: ' + xhr.responseText);
+		console.log('--------------');
+		if (xhr.readyState === 4 && xhr.status < 400) {
+			console.log('typeof xhr.responseText: ' + typeof xhr.responseText);
+			var maintenanceItems = JSON.parse(xhr.responseText);
+			console.log(maintenanceItems);
+			console.log('typeof maintenanceItems: ' + typeof maintenanceItems);
+			var hoursCount = 0;
+			var priceCount = 0;
+			for(var i = 0; i< maintenanceItems.length; i++) {
+				hoursCount += maintenanceItems[i].hours;
+				priceCount += maintenanceItems[i].price;
+			}
+			
+			displayStats(hoursCount, priceCount);
+			
+			console.log('Hours: ' + hoursCount + ', Cost: ' + priceCount );
+
+		}
+		if (xhr.readyState === 4 && xhr.status >= 400) {
+			console.error(xhr.status + ': ' + xhr.responseText);
+			document.results.textContent = "Maintenance Event not found."
+		}
+	};
+	xhr.send(null);
+}
+
+function displayStats(hoursCount, priceCount) {
+	var hours = document.getElementById('hours');
+	var price = document.getElementById('price');
+	
+	hours.textContent = hoursCount;
+	price.textContent = priceCount;
+	
 }
 
 function displayMaintenanceItem(maintenanceItem) {
