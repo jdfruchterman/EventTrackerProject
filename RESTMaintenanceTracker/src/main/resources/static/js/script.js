@@ -76,7 +76,7 @@ function editMaintenanceItem(e) {
 	var editedMaintenanceItemObject = {
 	  id: e.currentTarget.id,
 	  title: editedMaintenanceItemData.title.value,
-	  category: editedMaintenanceItemData.category.value,
+	  category: editedMaintenanceItemData.category.name.value,
 	  description: editedMaintenanceItemData.description.value,
 	  price: editedMaintenanceItemData.price.value,
 	  hours: editedMaintenanceItemData.hours.value,
@@ -107,6 +107,9 @@ function deleteMaintenanceItem(e) {
 
 function editView(maintenanceItem) {
 	var editDiv = document.getElementById('editView');
+	while(editDiv.nextChild) {
+		editDiv.removeChild(list.firstElementChild);
+		}
 	var form = document.createElement('form');
 	form.id = "editViewForm";
 	editDiv.appendChild(form);
@@ -116,8 +119,10 @@ function editView(maintenanceItem) {
 	titleInput.id = "title";
 	form.appendChild(titleInput);
 	
+	// change to dropdown selector
+	
 	var categoryInput = document.createElement('input');
-	categoryInput.value = maintenanceItem.category;
+	categoryInput.value = maintenanceItem.category.name;
 	categoryInput.id = "category";
 	form.appendChild(categoryInput);
 	
@@ -208,7 +213,7 @@ function createMaintenanceItem(e) {
 	console.log()
 	var maintenanceItemObject = {
 	  title: maintenanceItemData.title.value,
-	  category: maintenanceItemData.category.value,
+	  category: maintenanceItemData.category.name.value,
 	  description: maintenanceItemData.description.value,
 	  price: maintenanceItemData.price.value,
 	  hours: maintenanceItemData.hours.value,
@@ -310,7 +315,7 @@ function displayMaintenanceItem(maintenanceItem) {
 	tr.appendChild(title);
 	
 	var category = document.createElement('td');
-	category.textContent = maintenanceItem.category;
+	category.textContent = maintenanceItem.category.name;
 	tr.appendChild(category);
 	
 	var price = document.createElement('td');
@@ -358,7 +363,7 @@ function displayMaintItems(maintenanceItems) {
 		tr.appendChild(title);
 		
 		var category = document.createElement('td');
-		category.textContent = maintenanceItem.category;
+		category.textContent = maintenanceItem.category.name;
 		tr.appendChild(category);
 		
 		var price = document.createElement('td');

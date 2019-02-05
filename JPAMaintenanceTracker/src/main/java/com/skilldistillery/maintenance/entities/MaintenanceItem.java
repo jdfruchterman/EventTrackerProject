@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="maintenance_item")
@@ -16,13 +20,16 @@ public class MaintenanceItem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String title;
-	private String category;
+//	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 	private String description;
 	private double price;
 	private double hours;
 	@Column(name="performed_by")
 	private String performedBy;
-	private int miles;
+	private String miles;
 	private Date date;
 	private String vehicle;
 	public int getId() {
@@ -37,12 +44,8 @@ public class MaintenanceItem {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
+
+
 	public String getDescription() {
 		return description;
 	}
@@ -67,10 +70,10 @@ public class MaintenanceItem {
 	public void setPerformedBy(String performedBy) {
 		this.performedBy = performedBy;
 	}
-	public int getMiles() {
+	public String getMiles() {
 		return miles;
 	}
-	public void setMiles(int miles) {
+	public void setMiles(String miles) {
 		this.miles = miles;
 	}
 	public Date getDate() {
@@ -84,6 +87,36 @@ public class MaintenanceItem {
 	}
 	public void setVehicle(String vehicle) {
 		this.vehicle = vehicle;
+	}
+	
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
+	
+	
+	public MaintenanceItem(int id, String title, Category category, String description, double price, double hours,
+			String performedBy, String miles, Date date, String vehicle) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.category = category;
+		this.description = description;
+		this.price = price;
+		this.hours = hours;
+		this.performedBy = performedBy;
+		this.miles = miles;
+		this.date = date;
+		this.vehicle = vehicle;
+	}
+	@Override
+	public String toString() {
+		return "MaintenanceItem [id=" + id + ", title=" + title + ", category=" + category + ", description="
+				+ description + ", price=" + price + ", hours=" + hours + ", performedBy=" + performedBy + ", miles="
+				+ miles + ", date=" + date + ", vehicle=" + vehicle + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -105,25 +138,7 @@ public class MaintenanceItem {
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "MaintenanceItem [id=" + id + ", title=" + title + ", category=" + category + ", description="
-				+ description + ", price=" + price + ", hours=" + hours + ", performedBy=" + performedBy + ", miles="
-				+ miles + ", date=" + date + ", vehicle=" + vehicle + "]";
-	}
-	public MaintenanceItem(int id, String title, String category, String description, double price, double hours,
-			String performedBy, int miles, Date date, String vehicle) {
-		this.id = id;
-		this.title = title;
-		this.category = category;
-		this.description = description;
-		this.price = price;
-		this.hours = hours;
-		this.performedBy = performedBy;
-		this.miles = miles;
-		this.date = date;
-		this.vehicle = vehicle;
-	}
+
 	public MaintenanceItem() {
 	}
 	

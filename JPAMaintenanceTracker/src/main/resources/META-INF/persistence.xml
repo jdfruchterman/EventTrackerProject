@@ -9,6 +9,7 @@
     </provider>
 
 	<class>com.skilldistillery.maintenance.entities.MaintenanceItem</class>
+	<class>com.skilldistillery.maintenance.entities.Category</class>
 
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/maintenancedb?useSSL=false" />
