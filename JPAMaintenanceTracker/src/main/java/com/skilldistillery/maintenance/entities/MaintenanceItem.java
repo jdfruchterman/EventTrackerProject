@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="maintenance_item")
@@ -30,6 +30,8 @@ public class MaintenanceItem {
 	@Column(name="performed_by")
 	private String performedBy;
 	private String miles;
+	
+	@Temporal(TemporalType.DATE)
 	private Date date;
 	private String vehicle;
 	public int getId() {

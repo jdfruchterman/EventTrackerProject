@@ -4,17 +4,8 @@ window.addEventListener('load', function(e) {
 });
 
 function init() {
-	// document.filmForm.lookup.addEventListener('click', function(event) {
-	// event.preventDefault();
-	// var filmId = document.filmForm.filmId.value;
-	// if (!isNaN(filmId) && filmId > 0) {
-	// getFilm(filmId);
-	// }
-	// })
-	// document.newFilmForm.saveFilm.addEventListener('click', createFilm);
 	document.createMaintenanceItemForm.submitMaintItem.addEventListener('click', createMaintenanceItem );
 	document.showMIForm.showMaintItem.addEventListener('click', showAll);
-	
 	getStats();
 }
 
@@ -120,11 +111,25 @@ function editView(maintenanceItem) {
 	form.appendChild(titleInput);
 	
 	// change to dropdown selector
+	var categories = showAllCategories();
+	var select = document.createElement('select');	
+	select.name = 'select';
+	select.setAttribute("size", 5)
 	
-	var categoryInput = document.createElement('input');
-	categoryInput.value = maintenanceItem.category.name;
-	categoryInput.id = "category";
-	form.appendChild(categoryInput);
+	
+	for(var i=1; i <= categories.length; i++) {
+		var categoryOption = document.createElement('option');
+		categoryOption.value = categories[i].id;
+		categoryOption.id = categories[i].name;
+		categoryOption.textContent = categories[i].name
+		select.appendChild(categoryOption);
+	}
+	form.appendChild(select);
+	
+//	var categoryInput = document.createElement('input');
+//	categoryInput.value = maintenanceItem.category;
+//	categoryInput.id = "category";
+//	form.appendChild(categoryInput);
 	
 	var descriptionInput = document.createElement('input');
 	descriptionInput.value = maintenanceItem.description;
@@ -180,9 +185,6 @@ function editView(maintenanceItem) {
 	form.appendChild(deleteButton);
 	
 	console.log(editDiv);
-	
-	
-	
 };
 
 
@@ -256,6 +258,38 @@ function showAll(e) {
 		}
 	};
 	xhr.send(null);
+}
+
+function showAllCategories(e) {
+//	e.preventDefault();
+	var xhr = new XMLHttpRequest();
+	
+	xhr.open('GET', 'api/categories/', true);
+	// xhr.open('GET', 'http://18.188.180.245:8080/PickEmRest/api/games/100',
+	// true);
+	
+	xhr.onreadystatechange = function() {
+		console.log('xhr.readyState: ' + xhr.readyState);
+		console.log('xhr.status: ' + xhr.readyState);
+		console.log('xhr.responseText: ' + xhr.responseText);
+		console.log('--------------');
+		if (xhr.readyState === 4 && xhr.status < 400) {
+			console.log('typeof xhr.responseText: ' + typeof xhr.responseText);
+			var categories = JSON.parse(xhr.responseText);
+			console.log(categories);
+			console.log('typeof categories: ' + typeof categories);
+//			displayMaintItems(categories);
+			console.log(categories);
+			
+		}
+		if (xhr.readyState === 4 && xhr.status >= 400) {
+			console.error(xhr.status + ': ' + xhr.responseText);
+			document.results.textContent = "Category not found."
+		}
+	};
+	xhr.send(null);
+	console.log(categories);
+	return categories;
 }
 
 function getStats() {

@@ -1,0 +1,80 @@
+<table *ngIf='!selected'>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Category</th>
+      <th>Description</th>
+      <!-- <th>Price</th>
+      <th>Hours</th>
+      <th>Performed By</th>
+      <th>Miles</th>
+      <th>Date</th>
+      <th>Vehicle</th> -->
+    </tr>
+  </thead>
+  <tr *ngFor='let maintenanceItem of maintenanceItems'>
+    <td>{{maintenanceItem.id}}</td>
+    <td (click)='displayMaintenanceItem(maintenanceItem)'>{{maintenanceItem.title}}</td>
+    <td>{{maintenanceItem.category.name}}</td>
+    <td>{{maintenanceItem.description}}</td>
+    <!-- <td>{{maintenanceItem.price}}</td>
+    <td>{{maintenanceItem.hours}}</td>
+    <td>{{maintenanceItem.performedBy}}</td>
+    <td>{{maintenanceItem.miles}}</td>
+    <td>{{maintenanceItem.date}}</td>
+    <td>{{maintenanceItem.vehicle}}</td> -->
+    <td>
+      <button (click)='deleteMaintenanceItem(maintenanceItem.id)'>X</button>
+    </td>
+  </tr>
+</table>
+
+<div *ngIf='selected && !editMaintenanceItem'>
+  <button (click)='displayTable()'>Display Table</button>
+  <button (click)='setEditMaintenanceItem()'>Edit</button>
+  ID: {{selected.id}}
+  Title: {{selected.title}}
+  Category: {{selected.category.name}}
+  Description: {{selected.description}}
+  Price: {{selected.price}}
+  Hours: {{selected.hours}}
+  Performed By: {{selected.performedBy}}
+  Miles: {{selected.miles}}
+  Date: {{selected.date}}
+  Vehicle: {{selected.vehicle}}
+</div>
+
+<form *ngIf='editMaintenanceItem' #editForm = "ngForm">
+Title: <input type="text" name="title" [(ngModel)]= 'editMaintenanceItem.title' ngModel>
+Category: <select [(ngModel)]= 'editMaintenanceItem.category' name='category' >
+  <option *ngFor='let category of categories' [ngValue]='category' >{{category.name}}</option>
+</select>
+Description: <input type="text" name="description" [(ngModel)]= 'editMaintenanceItem.description' ngModel>
+Price: <input type="text" name="price" [(ngModel)]= 'editMaintenanceItem.price' ngModel>
+Hours: <input type="text" name="hours" [(ngModel)]= 'editMaintenanceItem.hours' ngModel>
+Performed By: <input type="text" name="performedBy" [(ngModel)]= 'editMaintenanceItem.performedBy' ngModel>
+Miles: <input type="text" name="miles" [(ngModel)]= 'editMaintenanceItem.miles' ngModel>
+Date: <input type="date" name="date" [(ngModel)]= 'editMaintenanceItem.date' ngModel>
+Vehicle: <input type="text" name="vehicle" [(ngModel)]= 'editMaintenanceItem.vehicle' ngModel>
+
+<input type="submit" name="submit" value="Save" (click) = 'updateMaintenanceItem(editForm)'>
+<input type="submit" name="submit" value="Cancel" (click) = 'editMaintenanceItem=null'>
+</form>
+
+<form *ngIf='!selected' #createForm = "ngForm">
+  Title: <input type="text" name="title" ngModel><br>
+  <!-- do a dropdown for category -->
+  Category: <select ngModel name='category'>
+    <option *ngFor='let category of categories' [ngValue]='category' >{{category.name}}</option>
+  </select><br>
+  Description: <input type="text" name="description" ngModel><br>
+  Price: <input type="text" name="price" ngModel><br>
+  Hours: <input type="text" name="hours" ngModel><br>
+  Performed By: <input type="text" name="performedBy" ngModel><br>
+  Miles: <input type="text" name="miles" ngModel><br>
+  Date: <input type="date" name="date" ngModel><br>
+  Vehicle: <input type="text" name="vehicle" ngModel><br>
+
+  <input type="submit" name="submit" value="Add" (click) = "addMaintenanceItem(createForm)">
+</form>
